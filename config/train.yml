@@ -1,0 +1,102 @@
+root: ./
+save: ./trained_models/
+run_name: 'HVAEComplexSplit_rw_c9_ch32-16_za1_split'
+model_class: HVAEComplexSplit
+
+
+distributed: true
+
+# data hyperparameters
+data_args:
+  data_class: 'MolDatasetPDBBindZINCSplit'
+  data_path_pdb: data/PDBbind_v2020_refined/refined-set
+  data_path_zinc: data/zinc_data/zinc_data.h5
+  filter_data: True
+  train_split: 0.9
+  grid_size: 24
+  resolution: 0.5
+  encoding: softcube
+  channels_in_lig: ['e6', 'e7', 'e8', 'e9', 'e15', 'e16', 'e17', 'e35', 'e53']   #    TYPES_LIG = ['e6', 'e7', 'e8', 'e9', 'e15', 'e16', 'e17', 'e35', 'e53', 'HBD', 'HBA', 'Aromatic', 'FChargePos', 'FChargeNeut', 'FChargeNeg']
+  # channels_out_lig: ['e6', 'e7', 'e8', 'e16', 'e9', 'e17','e35','e53'] 
+  channels_in_prot: ['e6', 'e7', 'e8', 'e9', 'e15', 'e16', 'e17', 'e35', 'e53']  #    TYPES_PROT = ['e6', 'e7', 'e8', 'e9', 'e15', 'e16', 'e17', 'e35', 'e53', 'HBD', 'HBA', 'Aromatic', 'FChargePos', 'FChargeNeut', 'FChargeNeg']
+  # channels_out_prot: ['e6', 'e7', 'e8', 'e16', 'e9', 'e17','e35','e53']
+  random_rotate: True
+  random_translate: True
+  translate_max_dist: 1.0
+  normalize: True
+  noise_addatom: {'0': False}
+  noise_encoding: {'0': False}
+  noise_removeatom: False
+  random_types: False
+  random_channels: false
+  gauss_var: 0.15
+  gauss_trunc: 1.5
+  zinc_alpha: 1.  # proportion of zinc data (relative to pdb data) in each epoch (e.g., a value of 1 gives equal proportions)
+  zinc_alpha_anneal: false
+  zinc_alpha_anneal_rate: -.002  # change in zinc_alpha per epoch
+  zinc_alpha_min: 0.1
+  zinc_alpha_max: 0.5
+
+
+# train params
+batch_size: 18
+learning_rate: 0.01
+learning_rate_min: 0.0001
+weight_decay: 0.0003
+weight_decay_norm: 0.01
+weight_decay_norm_init: 1.0
+weight_decay_norm_anneal: False
+epochs: 6000
+warmup_epochs: 100 # learning rate warmup period
+kl_anneal_portion: 0.3  # kl warmup period (as portion of total training steps)
+kl_const_portion: 0.0001 # portion of training with kl coefficient set to kl_const_coeff
+kl_const_coeff: 0.0001 
+
+steric_loss_w: .1
+steric_mean_only: true
+
+# model params
+input_grid_format: density
+output_grid_format: density
+
+input_grid_format2: density
+output_grid_format2: density
+
+combine_prot_enc: input_only # OPTIONS: block, group, scale, input_only
+combine_prot_dec: group # OPTIONS: block, group, scale
+
+# from data
+grid_size: 48
+
+ch_growth: 2  # channel growth factor
+
+n_channels_start: 2
+n_channels_start_prot: 2
+
+# n_channels_start2: 24
+# n_channels_start_prot2: 24
+
+n_channels_start2: 32
+n_channels_start_prot2: 16
+
+n_channels_end: 2
+n_channels_end_prot: 2
+
+
+n_latent_res: 4  # number of latent resolutions
+groups_per_res: [4,4,4,4]
+n_group_latents: 8
+
+n_encoder_stem_modules: 1
+n_encoder_stem_modules2: 1
+n_decoder_stem_modules: 1
+n_decoder_stem_modules2: 1
+
+n_encoder_stem_blocks: 2  # encoder/decoder block has `n_cell_per_cond_enc * n_groups_per_scale` convs
+n_decoder_stem_blocks: 2
+
+n_encoder_group_blocks: 2 # blocks per encoder group
+n_decoder_group_blocks: 2
+
+n_convs_dec_block: 2
+n_convs_enc_block: 2

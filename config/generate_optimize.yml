@@ -1,0 +1,44 @@
+
+ligand_path: data/example_data/5d3h/5d3h_ligand.sdf  # .sdf file for molecule(s) to optimize
+target_path: data/example_data/5d3h/5d3h_pocket.pdb  # .pdb file for target structure
+target_path_pdbqt: data/example_data/5d3h/5d3h_pocket.pdbqt  # .pdbqt file for docking to target structure
+pdb_id: 5d3h  # PDB ID for target
+output: output/optimize_example  # output directory
+
+
+## optimization params
+key_opt: affinity_qvina  # options: affinity_qvina, qed, alogp, or sa
+save_name: affinity_qvina_z3-1  # directory name for saving optimization process
+opt_increase: false  # increase value during optimization
+
+n_cycles: 8  # optimization cycles
+n_samples_initial: 1000  # initial population size
+n_samples: 20 # number of children per parent
+n_best_parents: 20  # number of parents to choose from each pdb_id each next generation
+affinity_quantile_thresh: 0.5  # affinity threshold for parent pool (use for non-affinity optimization)
+random_rotate: true
+random_translate: false
+cluster_parents: true  # cluster molecules before choosing parents. Up to one parent chosen per cluster.
+
+zbetas_initial: 0.3  # prior-posterior interpolation factor for generating initial population
+temps_initial: 1.  # temperature factor for generating initial population
+zbetas: [0.3, 0.3, 0.2, 0.2, 0.2, 0.2, 0.2, 0.1]  # list defining prior-posterior interpolation factor for each optimization cycle. Or single value for all cycles.
+temps: 1.  # temperature factor
+
+
+## filter generated molecules
+ring_sizes: [5,6]  # only allow rings of this size
+ring_system_max: 3 # only allow ring systems up to this size
+ring_loops_max: 0  # only allow this many ring loops
+dbl_bond_pairs: false  # allow consecutive double bonds
+n_atoms_min: 0  # minimum number of atoms allowed in each molecule
+
+
+## model
+checkpoint: model_checkpoints/drughive_model_ch9.ckpt  # model checkpoint
+model_id: c9_pdbzinc  # id for model
+
+
+## docking
+docking_cmd: qvina2.1  # command for docking
+protonate: true  # protonate molecules before docking

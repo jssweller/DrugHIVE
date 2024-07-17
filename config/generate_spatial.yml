@@ -1,0 +1,31 @@
+
+ligand_path: data/example_data/substruct_mod/4w9f_ligand.sdf  # .sdf file for posterior ligand molecule
+target_path: data/example_data/4w9f/4w9f_pocket.pdb  # .pdb file for target structure
+
+# input either `substruct_modify_path` or `substruct_modify_pattern`, not both.
+substruct_modify_path: data/example_data/substruct_mod/substruct_modify.sdf  # .sdf file for ligand substructure to modify
+# substruct_modify_pattern: "[CH2]C1:C:C:C(C2:S:C:N:C:2C):C:C:1" # SMILES or SMARTS string for ligand substructure to modify
+
+pdb_id: 4w9f  # PDB ID for target
+output: output/substruct_modify_example  # output directory
+
+n_samples: 10 # number of molecules to generate
+random_rotate: true
+random_translate: false
+
+zbetas: [0.3, 0.3, 0.3, 0.3]  # list defining prior-posterior interpolation factor for each latent resolution. Or single value for all resolutions.
+temps: 1.  # list defining temperature factor for each latent resolution. Or single value for all resolution.
+
+
+## filter generated molecules
+ring_sizes: [5,6]  # only allow rings of this size
+ring_system_max: 3 # only allow ring systems up to this size
+ring_loops_max: 0  # only allow this many ring loops
+dbl_bond_pairs: false  # allow consecutive double bonds
+n_atoms_min: 0  # minimum number of atoms allowed in each molecule
+
+
+## model
+checkpoint: model_checkpoints/drughive_model_ch9.ckpt  # model checkpoint
+model_id: c9_pdbzinc  # id for model
+ffopt_mols: True  # run force field optimization on generated molecules

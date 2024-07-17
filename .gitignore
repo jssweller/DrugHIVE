@@ -1,0 +1,12 @@
+
+environment_list.txt
+environment.yml
+todo.txt
+*.sh
+
+image/*0.png
+data/mol_gen*
+model_checkpoints*
+__pycache__*
+*egg-info
+*_test*.yml

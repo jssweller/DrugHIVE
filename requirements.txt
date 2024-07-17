@@ -1,0 +1,15 @@
+h5py=3.8.0
+numpy=1.22.3
+openbabel=3.1.1
+pandas=1.4.1
+plotly=5.9.0
+python=3.9.16
+pytorch=1.12.1
+pytorch-cuda=11.7
+pytorch-lightning=2.0.0
+rdkit=2021.09.5
+scikit-image=0.19.3
+scikit-learn=1.1.2
+scipy=1.8.0
+tqdm=4.64.1
+yaml=0.2.5

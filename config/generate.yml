@@ -1,0 +1,26 @@
+
+ligand_path: data/example_data/5d3h/5d3h_ligand.sdf  # .sdf file for posterior ligand molecule
+target_path: data/example_data/5d3h/5d3h_pocket.pdb  # .pdb file for target structure
+pdb_id: 5d3h  # PDB ID for target
+output: output/generate_example  # output directory
+
+n_samples: 10 # number of molecules to generate
+random_rotate: true
+random_translate: false
+
+zbetas: [0., 0., 0., 0.]  # list defining prior-posterior interpolation factor for each latent resolution. Or single value for all resolutions.
+temps: [0.5, 0.5, 0.5, 0.5]  # list defining temperature factor for each latent resolution. Or single value for all resolution.
+
+
+# ## filter generated molecules
+# ring_sizes: [5,6]  # only allow rings of this size
+# ring_system_max: 3 # only allow ring systems up to this size
+# ring_loops_max: 0  # only allow this many ring loops
+# dbl_bond_pairs: false  # allow consecutive double bonds
+# n_atoms_min: 0  # minimum number of atoms allowed in each molecule
+
+
+## model
+checkpoint: model_checkpoints/drughive_model_ch9.ckpt  # model checkpoint
+model_id: c9_pdbzinc  # id for model
+ffopt_mols: True  # run force field optimization on generated molecules
