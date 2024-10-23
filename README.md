@@ -71,7 +71,7 @@ To sample between the prior and posterior, set the values of `zbetas` between `0
 To generate molecules with substructure modification, first adjust the parameters in the `generate_spatial.yml` example configuration file. Then, run the following command:
 
 ```bash
-python generate.py config/generate_spatial.yml
+python generate_molecules.py config/generate_spatial.yml
 ```
 
 
