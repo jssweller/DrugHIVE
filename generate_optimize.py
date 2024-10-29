@@ -333,7 +333,8 @@ if __name__ == '__main__':
                           double_bond_pairs=gargs.get('dbl_bond_pairs', None),
                           natoms_min=gargs.get('n_atoms_min', None))
     
-    if not os.path.isdir(initial_dir):
+    initial_done = os.path.isdir(initial_dir) and len(glob.glob(join(initial_dir, '**', 'mols_gen.sdf'), recursive=True)) > 0
+    if not initial_done:
         print('Generating initial molecules and saving to:', dirname(initial_dir), flush=True)
         molgen.generate_samples(gargs.n_samples_initial, 
                                 temps=gargs.get('temps_initial', 1.),
@@ -347,7 +348,8 @@ if __name__ == '__main__':
         
 
     while opt_num_curr <= n_cycles:
-        dirs = [d for d in glob.glob(join(savedir,'*')) if 'mols_parent' not in basename(d)]
+        dirs = [d for d in glob.glob(join(savedir,'*'), ) if 'mols_parent' not in basename(d) and os.path.isdir(d)]
+        dirs = [d for d in dirs if len(glob.glob(join(d, '**', 'mols_gen.sdf'), recursive=True)) > 0] # check if previous opt_nums are complete
         opt_nums = [int(basename(d).split('_opt')[-1]) for d in dirs]
         if len(opt_nums) > 0:
             opt_num_prev = max(opt_nums)
