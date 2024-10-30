@@ -284,9 +284,6 @@ class AutoEncoderComplexSplit(nn.Module):
             if isinstance(layer, nn.BatchNorm3d):
                 self.layers_bn_all.append(layer)
 
-        print('len log norm:', len(self.layers_log_norm_all))
-        print('len bn:', len(self.layers_bn_all))
-
         self.spectral_norm_u = {}
         self.spectral_norm_v = {}
 
