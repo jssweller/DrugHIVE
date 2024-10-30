@@ -202,8 +202,7 @@ class MolGenerator(object):
         n_tries_all = 0
         n_samples_all = 0
 
-        pbar = trange(len(example_files))
-        for j in pbar:
+        for j in range(len(example_files)):
             recpath = example_files.loc[j, 'recpath'].replace('\\','/')
             ligpath = example_files.loc[j, 'ligpath'].replace('\\','/')
 
@@ -219,7 +218,11 @@ class MolGenerator(object):
                     zlist = latents['z']
             n_tries = 0
             mols_pred = []
-            for i in range(n_samples):
+            print(f'Generating samples for input {j+1:d} of {len(example_files):d}:')
+            print('    recpath:', recpath)
+            print('    ligpath:', ligpath)
+            pbar = trange(n_samples)
+            for i in pbar:
                 q = 0
                 mol_pred = None  
                 while mol_pred is None:
