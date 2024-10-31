@@ -1,8 +1,9 @@
 # DrugHIVE: Structure-based drug design with a deep hierarchical generative model
 
-[![DOI](https://img.shields.io/badge/DOI-BioRxiv-B31B1B.svg)](https://www.biorxiv.org/content/10.1101/2023.12.22.573155v2)
+[![DOI](https://img.shields.io/badge/DOI-JCIM-darkred)](https://pubs.acs.org/doi/10.1021/acs.jcim.4c01193)
 
-This repository is the official implementation of **DrugHIVE**, a deep hierarchical variational autoencoder developed for structure-based drug design. [bioRxiv preprint](https://www.biorxiv.org/content/10.1101/2023.12.22.573155v2).
+This repository is the official implementation of **DrugHIVE**, a deep hierarchical variational autoencoder developed for structure-based drug design. 
+[JCIM paper](https://pubs.acs.org/doi/10.1021/acs.jcim.4c01193).
 
 
  <div>
